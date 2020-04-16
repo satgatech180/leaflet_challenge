@@ -22,14 +22,19 @@ var myMap = L.map("map", {
         data.features.forEach( obj => {
             var lat = obj.geometry.coordinates[1];
             var lng = obj.geometry.coordinates[0];
-            var mag = parseFloat(obj.properties.mag) * 15000
+            var mag = parseFloat(obj.properties.mag);
+            var place = obj.properties.place;
             
-            L.circle([lat, lng], {
+            L.circleMarker([lat,lng], {
+                stroke: false,
                 color: getColor(mag),
                 fillColor: getColor(mag),
                 fillOpacity: 0.75,
-                radius: mag
-              }).addTo(myMap);
+                radius: mag * 4
+              }
+              
+              
+              ) .bindPopup("<h2>" + place + "</h2> <hr> <h2>Magnitude: " + mag + "</h2>").addTo(myMap);
             
             
         });
